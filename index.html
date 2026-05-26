@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Python Data Types</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
   :root {
     --navy: #0D1B2A;
@@ -27,7 +27,7 @@
   body {
     background: var(--navy);
     color: var(--white);
-    font-family: 'DM Sans', sans-serif;
+    font-family: sans-serif;
     font-weight: 300;
     line-height: 1.7;
     min-height: 100vh;
@@ -46,7 +46,7 @@
     background: rgba(56,189,248,0.12);
     border: 1px solid rgba(56,189,248,0.3);
     color: var(--accent);
-    font-family: 'DM Mono', monospace;
+    font-family: monospace;
     font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -56,7 +56,7 @@
   }
 
   header h1 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Times New Roman', Times, serif;
     font-size: clamp(2rem, 5vw, 3.4rem);
     font-weight: 800;
     color: var(--white);
@@ -86,7 +86,7 @@
     background: rgba(26,86,219,0.12);
     border: 1px solid rgba(26,86,219,0.25);
     color: var(--blue-light);
-    font-family: 'DM Mono', monospace;
+    font-family: monospace;
     font-size: 12px;
     padding: 6px 16px;
     border-radius: 100px;
@@ -120,7 +120,7 @@
   }
 
   .section-label {
-    font-family: 'DM Mono', monospace;
+    font-family: monospace;
     font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -129,7 +129,7 @@
   }
 
   .section-title {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Times New Roman', Times, serif;
     font-size: 1.55rem;
     font-weight: 700;
     color: var(--white);
@@ -167,7 +167,7 @@
   }
 
   .type-tag {
-    font-family: 'DM Mono', monospace;
+    font-family: monospace;
     font-size: 11px;
     background: rgba(56,189,248,0.12);
     color: var(--accent);
@@ -177,7 +177,7 @@
   }
 
   .card h3 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Times New Roman', Times, serif;
     font-size: 1.05rem;
     font-weight: 700;
     color: var(--white);
@@ -201,7 +201,7 @@
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.08);
     font-size: 11px;
-    font-family: 'DM Mono', monospace;
+    font-family: monospace;
     color: #CBD5E1;
     padding: 3px 9px;
     border-radius: 5px;
@@ -213,7 +213,7 @@
     border: 1px solid rgba(255,255,255,0.07);
     border-radius: 10px;
     padding: 16px 18px;
-    font-family: 'DM Mono', monospace;
+    font-family: monospace;
     font-size: 12.5px;
     color: #CBD5E1;
     overflow-x: auto;
@@ -243,7 +243,7 @@
     font-size: 11px;
     padding: 4px 11px;
     border-radius: 100px;
-    font-family: 'DM Mono', monospace;
+    font-family: monospace;
   }
 
   /* WIDE CARD (for sections that span full width) */
@@ -261,7 +261,7 @@
   thead th {
     background: rgba(26,86,219,0.18);
     color: var(--accent);
-    font-family: 'DM Mono', monospace;
+    font-family: monospace;
     font-size: 11px;
     letter-spacing: 1px;
     padding: 10px 14px;
@@ -273,7 +273,7 @@
     padding: 9px 14px;
     border-bottom: 1px solid rgba(255,255,255,0.04);
     color: #CBD5E1;
-    font-family: 'DM Mono', monospace;
+    font-family: monospace;
     font-size: 12px;
   }
 
@@ -304,7 +304,7 @@
   }
 
   .quiz-header h2 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Times New Roman', Times, serif;
     font-size: 1.6rem;
     font-weight: 800;
   }
@@ -318,7 +318,7 @@
     color: var(--accent);
     padding: 9px 20px;
     border-radius: 8px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: sans-serif;
     font-size: 13px;
     cursor: pointer;
     transition: all 0.2s;
@@ -347,7 +347,7 @@
   .question.wrong   { border-color: rgba(239,68,68,0.5); }
 
   .q-number {
-    font-family: 'DM Mono', monospace;
+    font-family: monospace;
     font-size: 10px;
     color: var(--muted);
     letter-spacing: 1px;
@@ -380,7 +380,7 @@
     cursor: pointer;
     transition: all 0.18s;
     text-align: left;
-    font-family: 'DM Sans', sans-serif;
+    font-family: sans-serif;
   }
 
   .opt:hover:not(:disabled) {
@@ -406,7 +406,7 @@
   .feedback {
     margin-top: 12px;
     font-size: 12.5px;
-    font-family: 'DM Mono', monospace;
+    font-family: monospace;
     display: none;
   }
 
@@ -431,7 +431,7 @@
   .score-bar.show { display: flex; }
 
   .score-num {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Times New Roman', Times, serif;
     font-size: 2rem;
     font-weight: 800;
     color: var(--accent);
