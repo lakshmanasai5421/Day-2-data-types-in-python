@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Data Types</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D1B2A;
+    --navy2: #162236;
+    --blue: #1A56DB;
+    --blue-light: #3B82F6;
+    --accent: #38BDF8;
+    --white: #F8FAFC;
+    --muted: #94A3B8;
+    --card: #111C2D;
+    --border: rgba(56,189,248,0.13);
+    --code-bg: #0A1120;
+    --green: #22D3A5;
+    --yellow: #FBBF24;
+    --radius: 14px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #0D1B2A 60%, #0F2A4A);
+    border-bottom: 1px solid var(--border);
+    padding: 56px 24px 48px;
+    text-align: center;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(56,189,248,0.12);
+    border: 1px solid rgba(56,189,248,0.3);
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+
+  header h1 span { color: var(--accent); }
+
+  header p {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* NAV PILLS */
+  .nav-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 28px 24px 0;
+  }
+
+  .pill {
+    background: rgba(26,86,219,0.12);
+    border: 1px solid rgba(26,86,219,0.25);
+    color: var(--blue-light);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    padding: 6px 16px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .pill:hover {
+    background: rgba(26,86,219,0.28);
+    border-color: var(--blue-light);
+    color: #fff;
+  }
+
+  /* MAIN */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 20px 80px;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 52px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* CARDS GRID */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .card:hover {
+    border-color: rgba(56,189,248,0.35);
+    transform: translateY(-2px);
+  }
+
+  .card-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .type-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    background: rgba(56,189,248,0.12);
+    color: var(--accent);
+    border: 1px solid rgba(56,189,248,0.22);
+    padding: 3px 10px;
+    border-radius: 6px;
+  }
+
+  .card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .card p {
+    color: var(--muted);
+    font-size: 0.88rem;
+    margin-bottom: 10px;
+  }
+
+  .prop-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .prop-list li {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: #CBD5E1;
+    padding: 3px 9px;
+    border-radius: 5px;
+  }
+
+  /* CODE BLOCK */
+  .code-block {
+    background: var(--code-bg);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 16px 18px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px;
+    color: #CBD5E1;
+    overflow-x: auto;
+    line-height: 1.8;
+    margin-top: 10px;
+  }
+
+  .code-block .kw  { color: #93C5FD; }
+  .code-block .fn  { color: #A5F3FC; }
+  .code-block .str { color: #86EFAC; }
+  .code-block .num { color: #FBBF24; }
+  .code-block .cm  { color: #475569; }
+  .code-block .out { color: #22D3A5; }
+
+  /* REAL TIME EXAMPLES */
+  .examples-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .ex-chip {
+    background: rgba(34,211,165,0.08);
+    border: 1px solid rgba(34,211,165,0.18);
+    color: var(--green);
+    font-size: 11px;
+    padding: 4px 11px;
+    border-radius: 100px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* WIDE CARD (for sections that span full width) */
+  .card.wide { grid-column: 1 / -1; }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; margin-top: 14px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  thead th {
+    background: rgba(26,86,219,0.18);
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  tbody td {
+    padding: 9px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: #CBD5E1;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+  }
+
+  tbody tr:hover td { background: rgba(255,255,255,0.03); }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 56px 0;
+  }
+
+  /* QUIZ */
+  .quiz-section {
+    background: linear-gradient(135deg, #0F2A4A, #0D1B2A);
+    border: 1px solid rgba(56,189,248,0.2);
+    border-radius: 18px;
+    padding: 40px 32px;
+  }
+
+  .quiz-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .quiz-header h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+  }
+
+  .refresh-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(56,189,248,0.1);
+    border: 1px solid rgba(56,189,248,0.3);
+    color: var(--accent);
+    padding: 9px 20px;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .refresh-btn:hover {
+    background: rgba(56,189,248,0.2);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .refresh-btn svg { transition: transform 0.4s; }
+  .refresh-btn:hover svg { transform: rotate(180deg); }
+
+  /* QUESTION */
+  .question {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+    transition: border-color 0.2s;
+  }
+
+  .question.correct { border-color: rgba(34,211,165,0.5); }
+  .question.wrong   { border-color: rgba(239,68,68,0.5); }
+
+  .q-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .q-text {
+    font-size: 0.95rem;
+    color: var(--white);
+    font-weight: 500;
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+
+  .options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  @media (max-width: 480px) { .options { grid-template-columns: 1fr; } }
+
+  .opt {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #CBD5E1;
+    cursor: pointer;
+    transition: all 0.18s;
+    text-align: left;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .opt:hover:not(:disabled) {
+    background: rgba(26,86,219,0.18);
+    border-color: var(--blue-light);
+    color: #fff;
+  }
+
+  .opt.correct-ans {
+    background: rgba(34,211,165,0.12);
+    border-color: rgba(34,211,165,0.5);
+    color: var(--green);
+  }
+
+  .opt.wrong-ans {
+    background: rgba(239,68,68,0.1);
+    border-color: rgba(239,68,68,0.4);
+    color: #F87171;
+  }
+
+  .opt:disabled { cursor: default; }
+
+  .feedback {
+    margin-top: 12px;
+    font-size: 12.5px;
+    font-family: 'DM Mono', monospace;
+    display: none;
+  }
+
+  .feedback.show { display: block; }
+  .feedback.ok   { color: var(--green); }
+  .feedback.bad  { color: #F87171; }
+
+  /* SCORE BAR */
+  .score-bar {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+    display: none;
+  }
+
+  .score-bar.show { display: flex; }
+
+  .score-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent);
+  }
+
+  .score-label { color: var(--muted); font-size: 13px; }
+
+  .progress-track {
+    flex: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 100px;
+    overflow: hidden;
+    min-width: 120px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blue), var(--accent));
+    border-radius: 100px;
+    transition: width 0.6s ease;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .cards { grid-template-columns: 1fr; }
+    .quiz-section { padding: 28px 18px; }
+    header h1 { font-size: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">Day 2 · Python Basics</div>
+  <h1>Python <span>Data Types</span></h1>
+  <p>Learn how Python stores and organizes different kinds of data.</p>
+  <div class="nav-pills">
+    <a class="pill" href="#numeric">Numeric</a>
+    <a class="pill" href="#string">String</a>
+    <a class="pill" href="#boolean">Boolean</a>
+    <a class="pill" href="#sequence">Sequence</a>
+    <a class="pill" href="#set">Set</a>
+    <a class="pill" href="#dict">Dictionary</a>
+    <a class="pill" href="#quiz">Quiz</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- 1. NUMERIC -->
+  <section class="section" id="numeric">
+    <div class="section-label">01</div>
+    <div class="section-title">Numeric Data Types</div>
+    <p style="color:var(--muted);font-size:.9rem;margin-bottom:20px;">Numeric data types are used to store numbers in Python. There are three kinds.</p>
+
+    <div class="cards">
+      <!-- INT -->
+      <div class="card">
+        <div class="card-head">
+          <span class="type-tag">int</span>
+          <h3>Integer</h3>
+        </div>
+        <p>Stores whole numbers without any decimal point. Can be positive or negative.</p>
+        <ul class="prop-list">
+          <li>No decimal</li>
+          <li>Positive or Negative</li>
+          <li>Unlimited size</li>
+        </ul>
+        <div class="code-block">
+<span class="cm"># Example</span>
+c = <span class="num">1000</span>
+<span class="fn">print</span>(<span class="fn">type</span>(c))
+
+<span class="cm"># Output</span>
+<span class="out">&lt;class 'int'&gt;</span>
+        </div>
+      </div>
+
+      <!-- FLOAT -->
+      <div class="card">
+        <div class="card-head">
+          <span class="type-tag">float</span>
+          <h3>Float</h3>
+        </div>
+        <p>Stores numbers with a decimal point. Used when precision is needed.</p>
+        <ul class="prop-list">
+          <li>Has decimal</li>
+          <li>Positive or Negative</li>
+          <li>Scientific notation</li>
+        </ul>
+        <div class="code-block">
+<span class="cm"># Example</span>
+height = <span class="num">5.9</span>
+<span class="fn">print</span>(<span class="fn">type</span>(height))
+
+<span class="cm"># Output</span>
+<span class="out">5.9</span>
+<span class="out">&lt;class 'float'&gt;</span>
+        </div>
+      </div>
+
+      <!-- COMPLEX -->
+      <div class="card">
+        <div class="card-head">
+          <span class="type-tag">complex</span>
+          <h3>Complex</h3>
+        </div>
+        <p>Stores complex numbers. Mainly used in scientific and engineering calculations.</p>
+        <ul class="prop-list">
+          <li>Real part</li>
+          <li>Imaginary part (j)</li>
+          <li>Scientific use</li>
+        </ul>
+        <div class="code-block">
+<span class="cm"># Example</span>
+x = <span class="num">2</span> + <span class="num">3j</span>
+<span class="fn">print</span>(x)
+<span class="fn">print</span>(<span class="fn">type</span>(x))
+
+<span class="cm"># Output</span>
+<span class="out">(2+3j)</span>
+<span class="out">&lt;class 'complex'&gt;</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 2. STRING -->
+  <section class="section" id="string">
+    <div class="section-label">02</div>
+    <div class="section-title">String Data Type (str)</div>
+    <div class="cards">
+      <div class="card wide">
+        <p>A string stores text or characters. It is written inside quotes and can contain letters, numbers, and symbols.</p>
+        <ul class="prop-list" style="margin-top:12px;">
+          <li>Written in quotes</li>
+          <li>Can hold letters, numbers, symbols</li>
+          <li>Immutable (cannot be changed)</li>
+          <li>Supports indexing</li>
+        </ul>
+        <div class="code-block" style="margin-top:16px;">
+<span class="cm"># Example</span>
+name = <span class="str">"Python"</span>
+<span class="fn">print</span>(name)
+
+<span class="cm"># Output</span>
+<span class="out">Python</span>
+        </div>
+        <div class="examples-row" style="margin-top:16px;">
+          <span class="ex-chip">Names</span>
+          <span class="ex-chip">Addresses</span>
+          <span class="ex-chip">Messages</span>
+          <span class="ex-chip">Usernames</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 3. BOOLEAN -->
+  <section class="section" id="boolean">
+    <div class="section-label">03</div>
+    <div class="section-title">Boolean Data Type (bool)</div>
+    <div class="cards">
+      <div class="card">
+        <p>A boolean stores only two values: <strong>True</strong> or <strong>False</strong>. It is used for decisions and conditions.</p>
+        <ul class="prop-list" style="margin-top:10px;">
+          <li>True</li>
+          <li>False</li>
+          <li>Used in conditions</li>
+        </ul>
+        <div class="code-block">
+<span class="fn">print</span>(<span class="num">10</span> &gt; <span class="num">5</span>)
+<span class="fn">print</span>(<span class="num">10</span> &lt; <span class="num">5</span>)
+
+<span class="cm"># Output</span>
+<span class="out">True</span>
+<span class="out">False</span>
+        </div>
+      </div>
+      <div class="card">
+        <p style="margin-bottom:14px;">Real world situations where boolean is used:</p>
+        <div class="examples-row">
+          <span class="ex-chip">Login success</span>
+          <span class="ex-chip">Exam pass or fail</span>
+          <span class="ex-chip">Payment completed</span>
+          <span class="ex-chip">Is admin</span>
+          <span class="ex-chip">Is active</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 4. SEQUENCE -->
+  <section class="section" id="sequence">
+    <div class="section-label">04</div>
+    <div class="section-title">Sequence Data Types</div>
+    <p style="color:var(--muted);font-size:.9rem;margin-bottom:20px;">Sequence types store multiple items in an ordered manner.</p>
+
+    <div class="cards">
+      <!-- LIST -->
+      <div class="card">
+        <div class="card-head">
+          <span class="type-tag">list</span>
+          <h3>List</h3>
+        </div>
+        <p>Stores multiple items in one variable. Items can be added or changed.</p>
+        <ul class="prop-list">
+          <li>Ordered</li>
+          <li>Mutable</li>
+          <li>Allows duplicates</li>
+          <li>Syntax: []</li>
+        </ul>
+        <div class="code-block">
+students = [<span class="str">"Sai"</span>, <span class="str">"Ravi"</span>, <span class="str">"Kiran"</span>]
+        </div>
+        <div class="examples-row" style="margin-top:10px;">
+          <span class="ex-chip">Student names</span>
+          <span class="ex-chip">Product list</span>
+          <span class="ex-chip">Marks list</span>
+        </div>
+      </div>
+
+      <!-- TUPLE -->
+      <div class="card">
+        <div class="card-head">
+          <span class="type-tag">tuple</span>
+          <h3>Tuple</h3>
+        </div>
+        <p>Like a list but cannot be changed after creation. Faster than list.</p>
+        <ul class="prop-list">
+          <li>Ordered</li>
+          <li>Immutable</li>
+          <li>Faster than list</li>
+          <li>Syntax: ()</li>
+        </ul>
+        <div class="code-block">
+colors = (<span class="str">"Red"</span>, <span class="str">"Blue"</span>, <span class="str">"Green"</span>)
+        </div>
+        <div class="examples-row" style="margin-top:10px;">
+          <span class="ex-chip">Fixed data</span>
+          <span class="ex-chip">Coordinates</span>
+          <span class="ex-chip">Days of week</span>
+        </div>
+      </div>
+
+      <!-- ARRAY -->
+      <div class="card wide">
+        <div class="card-head">
+          <span class="type-tag">array</span>
+          <h3>Array</h3>
+        </div>
+        <p>An array stores elements of the same data type together. Used for fast numerical operations and to reduce memory usage.</p>
+        <div class="code-block" style="margin-top:12px;">
+<span class="kw">from</span> array <span class="kw">import</span> array
+
+numbers = array(<span class="str">'i'</span>, [<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>, <span class="num">40</span>])
+<span class="fn">print</span>(numbers)
+
+<span class="cm"># Output</span>
+<span class="out">array('i', [10, 20, 30, 40])</span>
+
+<span class="cm"># Modify an element</span>
+numbers[<span class="num">1</span>] = <span class="num">50</span>
+<span class="fn">print</span>(numbers)
+        </div>
+        <div class="table-wrap" style="margin-top:18px;">
+          <table>
+            <thead>
+              <tr>
+                <th>Type Code</th>
+                <th>Data Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>'i'</td><td>Integer</td></tr>
+              <tr><td>'f'</td><td>Float</td></tr>
+              <tr><td>'u'</td><td>Unicode character</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 5. SET -->
+  <section class="section" id="set">
+    <div class="section-label">05</div>
+    <div class="section-title">Set Data Type (set)</div>
+    <div class="cards">
+      <div class="card">
+        <p>A set stores unique values only. Duplicate values are automatically removed.</p>
+        <ul class="prop-list" style="margin-top:10px;">
+          <li>Unordered</li>
+          <li>No duplicates</li>
+          <li>Mutable</li>
+          <li>Syntax: {}</li>
+        </ul>
+        <div class="code-block">
+a = {<span class="num">1</span>, <span class="num">2</span>, <span class="num">2</span>, <span class="num">3</span>}
+<span class="fn">print</span>(a)
+
+<span class="cm"># Output</span>
+<span class="out">{1, 2, 3}</span>
+        </div>
+      </div>
+      <div class="card">
+        <p style="margin-bottom:14px;">Real world uses of set:</p>
+        <div class="examples-row">
+          <span class="ex-chip">Unique IDs</span>
+          <span class="ex-chip">Unique usernames</span>
+          <span class="ex-chip">Removing duplicates</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 6. DICTIONARY -->
+  <section class="section" id="dict">
+    <div class="section-label">06</div>
+    <div class="section-title">Dictionary Data Type (dict)</div>
+    <div class="cards">
+      <div class="card wide">
+        <p>A dictionary stores data as key-value pairs. You access a value by its key instead of a position number.</p>
+        <ul class="prop-list" style="margin-top:12px;">
+          <li>Key-value structure</li>
+          <li>Fast data access</li>
+          <li>Mutable</li>
+          <li>Keys must be unique</li>
+        </ul>
+        <div class="code-block" style="margin-top:14px;">
+<span class="cm"># Syntax</span>
+my_dict = {
+    <span class="str">"key1"</span>: <span class="str">"value1"</span>,
+    <span class="str">"key2"</span>: <span class="str">"value2"</span>
+}
+
+<span class="cm"># Accessing a value</span>
+<span class="fn">print</span>(student[<span class="str">"name"</span>])
+        </div>
+        <div class="examples-row" style="margin-top:14px;">
+          <span class="ex-chip">Student records</span>
+          <span class="ex-chip">Employee details</span>
+          <span class="ex-chip">User profiles</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- QUIZ -->
+  <section class="section" id="quiz">
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <div>
+          <div class="section-label" style="margin-bottom:6px;">Test Your Knowledge</div>
+          <h2>Quick Quiz</h2>
+        </div>
+        <button class="refresh-btn" onclick="loadQuiz()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M23 4v6h-6"/><path d="M1 20v-6h6"/>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+          </svg>
+          New Questions
+        </button>
+      </div>
+
+      <div id="quiz-container"></div>
+      <div class="score-bar" id="score-bar">
+        <div>
+          <div class="score-num" id="score-num">0/5</div>
+          <div class="score-label">Your Score</div>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+const ALL_QUESTIONS = [
+  { q: "Which data type stores whole numbers without decimal points?", opts: ["float", "int", "str", "bool"], ans: 1 },
+  { q: "What is the output of type(5.9) in Python?", opts: ["int", "complex", "float", "str"], ans: 2 },
+  { q: "Which data type is used for scientific calculations involving real and imaginary parts?", opts: ["float", "int", "complex", "bool"], ans: 2 },
+  { q: "Which data type can only hold True or False?", opts: ["int", "str", "bool", "list"], ans: 2 },
+  { q: "What is the syntax used to create a list in Python?", opts: ["()", "{}", "[]", "<>"], ans: 2 },
+  { q: "Which sequence type cannot be changed after creation?", opts: ["list", "set", "array", "tuple"], ans: 3 },
+  { q: "What makes a set different from a list?", opts: ["It is ordered", "It stores only unique values", "It allows duplicates", "It is immutable"], ans: 1 },
+  { q: "Which data type stores data as key-value pairs?", opts: ["list", "tuple", "set", "dict"], ans: 3 },
+  { q: "Which type code is used for integer in Python arrays?", opts: ["'f'", "'u'", "'i'", "'s'"], ans: 2 },
+  { q: "What will print(10 > 5) output?", opts: ["10", "5", "True", "False"], ans: 2 },
+  { q: "Which of these is immutable?", opts: ["list", "dict", "set", "tuple"], ans: 3 },
+  { q: "Which data type would you use to store a student's name?", opts: ["int", "str", "bool", "float"], ans: 1 },
+  { q: "What is the output of: a = {1,2,2,3}; print(a)?", opts: ["{1,2,2,3}", "{1,2,3}", "[1,2,3]", "(1,2,3)"], ans: 1 },
+  { q: "Which data type is fastest for storing fixed data in Python?", opts: ["list", "dict", "tuple", "set"], ans: 2 },
+  { q: "Which type stores multiple values of the SAME data type together?", opts: ["list", "dict", "tuple", "array"], ans: 3 },
+  { q: "How do you access a value in a dictionary?", opts: ["By index number", "By position", "By its key", "By type code"], ans: 2 },
+  { q: "What does 'Mutable' mean in Python data types?", opts: ["Cannot be changed", "Can be changed", "Has no value", "Has no type"], ans: 1 },
+  { q: "Which data type would store coordinates like (10, 20)?", opts: ["list", "set", "tuple", "dict"], ans: 2 },
+  { q: "What is the syntax for a dictionary in Python?", opts: ["[]", "()", "{key: value}", "{value}"], ans: 2 },
+  { q: "Which of these is an example of a float value?", opts: ["100", "True", "5.9", "Python"], ans: 2 }
+];
+
+function shuffle(arr) {
+  return [...arr].sort(() => Math.random() - 0.5);
+}
+
+function loadQuiz() {
+  const picked = shuffle(ALL_QUESTIONS).slice(0, 5);
+  const container = document.getElementById('quiz-container');
+  const scoreBar = document.getElementById('score-bar');
+  scoreBar.classList.remove('show');
+  document.getElementById('score-num').textContent = '0/5';
+  document.getElementById('progress-fill').style.width = '0%';
+
+  container.innerHTML = '';
+  let answered = 0;
+  let correct = 0;
+
+  picked.forEach((item, idx) => {
+    const qDiv = document.createElement('div');
+    qDiv.className = 'question';
+    qDiv.innerHTML = `
+      <div class="q-number">QUESTION ${idx + 1} OF 5</div>
+      <div class="q-text">${item.q}</div>
+      <div class="options" id="opts-${idx}">
+        ${item.opts.map((o, i) => `<button class="opt" onclick="answer(${idx},${i},${item.ans},this)">${o}</button>`).join('')}
+      </div>
+      <div class="feedback" id="fb-${idx}"></div>
+    `;
+    container.appendChild(qDiv);
+  });
+
+  window.quizState = { answered: 0, correct: 0, total: 5 };
+}
+
+function answer(qIdx, chosen, correctIdx, btn) {
+  const opts = document.querySelectorAll(`#opts-${qIdx} .opt`);
+  opts.forEach(b => b.disabled = true);
+
+  const fb = document.getElementById(`fb-${qIdx}`);
+  const qDiv = btn.closest('.question');
+
+  if (chosen === correctIdx) {
+    btn.classList.add('correct-ans');
+    qDiv.classList.add('correct');
+    fb.textContent = 'Correct!';
+    fb.className = 'feedback show ok';
+    window.quizState.correct++;
+  } else {
+    btn.classList.add('wrong-ans');
+    opts[correctIdx].classList.add('correct-ans');
+    qDiv.classList.add('wrong');
+    fb.textContent = 'Wrong. The correct answer is highlighted.';
+    fb.className = 'feedback show bad';
+  }
+
+  window.quizState.answered++;
+
+  if (window.quizState.answered === window.quizState.total) {
+    const s = window.quizState.correct;
+    const t = window.quizState.total;
+    const pct = Math.round((s / t) * 100);
+    document.getElementById('score-num').textContent = s + '/' + t;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('score-bar').classList.add('show');
+  }
+}
+
+loadQuiz();
+</script>
+</body>
+</html>
